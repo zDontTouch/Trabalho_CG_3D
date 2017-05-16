@@ -1,0 +1,65 @@
+﻿  Teste_trabalho_CG_grauB.cpp
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\vertex.h(12): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\vertex.h(13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\vertex.h(14): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\shape.h(30): warning C4018: '<': signed/unsigned mismatch
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\shape.h(31): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\model_object.h(27): warning C4018: '<': signed/unsigned mismatch
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(16): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(17): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(18): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(42): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(43): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(48): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(49): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(54): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(55): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(60): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(61): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(85): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(86): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(91): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(92): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(97): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(98): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(103): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(104): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(109): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(110): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(116): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(117): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(122): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(123): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(128): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(129): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(134): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\map.h(135): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\globals.h(10): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\globals.h(11): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\camera_system.h(64): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\camera_system.h(82): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(87): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(88): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(89): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(90): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(95): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(96): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(97): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(98): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(103): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(104): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(105): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(106): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(111): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(112): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(113): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(114): warning C4305: 'argument': truncation from 'double' to 'GLfloat'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(276): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(282): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(288): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(292): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(305): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\leo\documents\visual studio 2015\projects\teste_trabalho_cg_graub\teste_trabalho_cg_graub\teste_trabalho_cg_graub.cpp(309): warning C4305: '+=': truncation from 'double' to 'float'
+  Teste_trabalho_CG_grauB.vcxproj -> C:\Users\Leo\documents\visual studio 2015\Projects\Teste_trabalho_CG_grauB\Debug\Teste_trabalho_CG_grauB.exe
+  Teste_trabalho_CG_grauB.vcxproj -> C:\Users\Leo\documents\visual studio 2015\Projects\Teste_trabalho_CG_grauB\Debug\Teste_trabalho_CG_grauB.pdb (Full PDB)
