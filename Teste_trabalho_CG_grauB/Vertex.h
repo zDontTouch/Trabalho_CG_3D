@@ -3,9 +3,9 @@ class Vertex
 {
 public:
 
-	int pos_x;
-	int pos_y;
-	int pos_z;
+	float pos_x;
+	float pos_y;
+	float pos_z;
 
 	Vertex(float x, float y, float z)
 	{

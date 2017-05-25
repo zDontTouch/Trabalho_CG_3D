@@ -17,6 +17,7 @@ public:
 
 	vector<Vertex> vertexes;
 	vector<float> color;
+	vector<float> normal_vector;
 
 	Shape(vector<Vertex> shape_vertexes, vector<float> color) {
 		vertexes = shape_vertexes;

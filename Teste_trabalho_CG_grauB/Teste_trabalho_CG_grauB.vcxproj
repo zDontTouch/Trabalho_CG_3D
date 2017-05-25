@@ -148,12 +148,17 @@
     <ClInclude Include="Camera_System.h" />
     <ClInclude Include="Coordinates.h" />
     <ClInclude Include="Globals.h" />
-    <ClInclude Include="Map.h" />
+    <ClInclude Include="Interactive_object.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="Scenario.h" />
     <ClInclude Include="Model_object.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Score_Manager.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Target.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Target_part.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
