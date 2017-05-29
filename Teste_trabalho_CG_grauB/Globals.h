@@ -1,7 +1,5 @@
 #pragma once
 #include <vector>
-#include "Model_object.h"
-#include "Scenario.h"
 
 using namespace std;
 
@@ -12,10 +10,10 @@ namespace Globals {
 	int SCREEN_WIDTH = 1400;
 	int SCREEN_HEIGTH = 880;
 
-	int MAX_SCENARIO_X = 20;
-	int MIN_SCENARIO_X = -20;
-	int MAX_SCENARIO_Z = 30;
-	int MIN_SCENARIO_Z = -20;
+	float MAX_SCENARIO_X = 20;
+	float MIN_SCENARIO_X = -20;
+	float MAX_SCENARIO_Z = 30;
+	float MIN_SCENARIO_Z = -20;
 
 	bool IS_W_DOWN = false;
 	bool IS_S_DOWN = false;
@@ -29,26 +27,27 @@ namespace Globals {
 	const int MEDIUM = 2;
 	const int HARD = 3;
 
-	int TARGET_PITCH_INACTIVE = 89;
-	int TARGET_PITCH_ACTIVE = 0;
+	float TARGET_PITCH_INACTIVE = 89;
+	float TARGET_PITCH_ACTIVE = 0;
 
 	const float INTERACTION_DISTANCE = 3;
 
-	const vector<int> MAX_ROUND_SECONDS_TIME{ 1,0 };
-	const int MAX_ROUND_SECONDS_TIME_INTEGER = 10;
+	const vector<int> MAX_ROUND_SECONDS_TIME{ 1,5 };
+	const float MAX_ROUND_SECONDS_TIME_INTEGER = 15;
 
 	const float BODY_SHOT_SCORE = 100;
 	const float HEAD_SHOT_SCORE = 150;
-	const int MISSED_SHOT = 0;
+	const float MISSED_SHOT = 0;
 
-	const int MAX_BULLETS_ON_CHAMBER = 15;
+	const float MAX_BULLETS_ON_CHAMBER = 15;
 
-	Scenario MAP;
-
-	vector<Model_object> game_elements{
-
-		MAP.map_walls
-
+	enum interaction_actions {
+		ADD,
+		SUBTRACT,
+		MULTIPLY,
+		DIVIDE
 	};
+
+
 
 }

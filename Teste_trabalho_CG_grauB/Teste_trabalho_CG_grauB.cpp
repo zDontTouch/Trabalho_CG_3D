@@ -8,9 +8,13 @@
 #include "Scenario.h"
 #include "Score_Manager.h"
 #include "Camera_System.h"
+#include "Global_instances.h"
 
 using namespace std;
 using namespace Globals;
+using namespace Global_instances;
+
+Interactive_object DUMMY_INTERACTION;
 
 float angle = 0;
 
@@ -30,6 +34,9 @@ int last_score = MISSED_SHOT;
 int bullets_on_chamber = MAX_BULLETS_ON_CHAMBER;
 bool is_reloading = false;
 bool warning_no_bullets = false;
+bool score_hit = false;
+
+Interactive_object current_interaction_object;
 
 Timer timer;
 
@@ -138,6 +145,18 @@ void no_bullets_warning_time(int value) {
 	}
 	else {
 		warning_no_bullets = false;
+	}
+
+	glutPostRedisplay();
+}
+
+void score_hit_warning_time(int value) {
+	if (value != 0) {
+		score_hit = true;
+		glutTimerFunc(500, score_hit_warning_time, 0);
+	}
+	else {
+		score_hit = false;
 	}
 
 	glutPostRedisplay();
@@ -252,8 +271,82 @@ void draw_2D_hud() {
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
 	}
 
+	//score hit animation
+	if (score_hit) {
+		ostringstream convert;
+		string score = "";
+
+		convert.str("");
+		convert << last_score;
+		score.append(convert.str());
+		score.append(" pts.");
+
+		glColor3ub(0,255,0);
+		glRasterPos3f(1.0,1.0,0.0);
+		for (char& c : score)
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+
+		//target hit image (where the last shot hit on the target)	
+
+		//head
+		glBegin(GL_QUADS);
+		if(last_score != HEAD_SHOT_SCORE)
+			glColor3f(1.0, 1.0, 1.0);
+		else
+			glColor3f(1.0, 0.0, 0.0);
+		glVertex3f(26.0, 9.8, 0.0);
+		glVertex3f(27.0, 9.8, 0.0);
+		glVertex3f(27.0, 8.5, 0.0);
+		glVertex3f(26.0, 8.5, 0.0);
+		glEnd();
+
+		//body
+		glBegin(GL_QUADS);
+		if (last_score != BODY_SHOT_SCORE)
+			glColor3f(1.0, 1.0, 1.0);
+		else
+			glColor3f(1.0, 0.0, 0.0);
+		glVertex3f(25.3, 8.5, 0.0);
+		glVertex3f(27.7, 8.5, 0.0);
+		glVertex3f(27.7, 4.0, 0.0);
+		glVertex3f(25.3, 4.0, 0.0);
+		glEnd();
+
+		string where_hit = "Bullet Hit:";
+		glColor3ub(255, 255, 255);
+		glRasterPos3f(24.5, 10.5, 0.0);
+		for (char& c : where_hit)
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+
+		//background square
+		glBegin(GL_QUADS);
+		glColor3f(0.0,0.0,0.0);
+		glVertex3f(24.0, 11.5, 0.0);
+		glVertex3f(29.0, 11.5, 0.0);
+		glVertex3f(29.0, 3.3, 0.0);
+		glVertex3f(24.0, 3.3, 0.0);
+		glEnd();
+
+	}
+
 	//bullet count
 	print_bullet_counter();
+
+	//interaction buttons label
+	if (current_interaction_object.hud_label != "") {
+		glColor3ub(0, 255, 255);
+		glRasterPos3f(-4.5, -3.0, 0.0);
+		for (char& c : current_interaction_object.hud_label)
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+		string interaction_instruction = "[E] Interaction";
+		glColor3ub(0, 255, 255);
+		glRasterPos3f(-2.5, -5.0, 0.0);
+		for (char& c : interaction_instruction)
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+
+
+	}
 
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
@@ -299,7 +392,8 @@ void DesenhaCena(void)
 
 // Inicializa aspectos do rendering
 void Inicio(void) {
-	glClearColor(0.2f, 0.0f, 0.0f, 1.0f);  // cor de fundo da janela
+	glClearColor(0.2f, 0.5f, 1.0f, 0.5f);  // cor de fundo da janela
+	DUMMY_INTERACTION.hud_label = "";
 }
 
 void teclasNormais(unsigned char tecla, int x, int y) {
@@ -361,6 +455,13 @@ void teclasNormaisup(unsigned char tecla, int x, int y) {
 							if (toupper(tecla) == 'R') {
 								glutTimerFunc(1, reloading_time, 1);
 							}
+							else {
+								if (toupper(tecla) == 'E') {
+									if (current_interaction_object.hud_label != "") {
+										current_interaction_object.execute_interaction();
+									}
+								}
+							}
 						}
 					}
 				}
@@ -373,6 +474,8 @@ void teclasNormaisup(unsigned char tecla, int x, int y) {
 }
 
 void mouse_movement(int button, int state, int x, int y) {
+
+	
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && cam.is_mouse_in == false) {
 
@@ -387,9 +490,8 @@ void mouse_movement(int button, int state, int x, int y) {
 	}
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		//testing targets collision (according to the difficulty selected) and shoot contabilization
-
 		bool missed_shot = false;
-		if (bullets_on_chamber > 0) {
+		if (bullets_on_chamber > 0 && !is_reloading) {
 			bullets_on_chamber--;
 
 			if (is_game_active) {
@@ -399,7 +501,7 @@ void mouse_movement(int button, int state, int x, int y) {
 				case EASY:
 					for (int i = 0; i < MAP.targets_easy.size(); i++) {
 						for (int j = 0; j < MAP.targets_easy[i].shapes.size(); j++) {
-							if (cam.is_camera_aiming_at(MAP.targets_easy[i].shapes[j], MAP.targets_easy[i], scoreBoards[scoreBoards.size() - 1])) {
+							if (cam.is_camera_aiming_at(MAP.targets_easy[i].shapes[j], MAP.targets_easy[i], scoreBoards[scoreBoards.size() - 1], EASY)) {
 								if (MAP.targets_easy[i].is_active && !MAP.targets_easy[i].is_dead) {
 									MAP.targets_easy[i].shapes[j].color = { 1.0, 0.0, 0.0 };
 									MAP.targets_easy[i].is_active = false;
@@ -407,9 +509,48 @@ void mouse_movement(int button, int state, int x, int y) {
 									MAP.targets_easy[i].pitch = TARGET_PITCH_INACTIVE;
 									if (j == 0) { //headshot
 										scoreBoards[scoreBoards.size() - 1].score(HEAD_SHOT_SCORE);
+										last_score = HEAD_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 									else { //bodyshot
 										scoreBoards[scoreBoards.size() - 1].score(BODY_SHOT_SCORE);
+										last_score = BODY_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
+									}
+								}
+								else { //missed shot
+									missed_shot = true;
+								}
+
+							}
+							else { //missed shot
+								missed_shot = true;
+							}
+						}
+					}
+
+					if (missed_shot)
+						scoreBoards[scoreBoards.size() - 1].score(MISSED_SHOT);
+					break;
+
+				case MEDIUM:
+					for (int i = 0; i < MAP.targets_medium.size(); i++) {
+						for (int j = 0; j < MAP.targets_medium[i].shapes.size(); j++) {
+							if (cam.is_camera_aiming_at(MAP.targets_medium[i].shapes[j], MAP.targets_medium[i], scoreBoards[scoreBoards.size() - 1], MEDIUM)) {
+								if (MAP.targets_medium[i].is_active && !MAP.targets_medium[i].is_dead) {
+									MAP.targets_medium[i].shapes[j].color = { 1.0, 0.0, 0.0 };
+									MAP.targets_medium[i].is_active = false;
+									MAP.targets_medium[i].is_dead = true;
+									MAP.targets_medium[i].pitch = TARGET_PITCH_INACTIVE;
+									if (j == 0) { //headshot
+										scoreBoards[scoreBoards.size() - 1].score(HEAD_SHOT_SCORE);
+										last_score = HEAD_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
+									}
+									else { //bodyshot
+										scoreBoards[scoreBoards.size() - 1].score(BODY_SHOT_SCORE);
+										last_score = BODY_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 								}
 								else { //missed shot
@@ -432,7 +573,8 @@ void mouse_movement(int button, int state, int x, int y) {
 
 		}
 		else {
-			glutTimerFunc(1, no_bullets_warning_time, 1);
+			if(!is_reloading)
+				glutTimerFunc(1, no_bullets_warning_time, 1);
 		}
 
 	}
@@ -450,6 +592,20 @@ void mouse_passive(int x, int y) {
 		if (future_pitch <= 90 && future_pitch >= -90) {
 			mouse_pos_y += y - (SCREEN_HEIGTH / 2);
 		}
+	}
+	
+	for (int i = 0; i < MAP.control_buttons.size(); i++) {
+		for (int j = 0; j < MAP.control_buttons[i].shapes.size(); j++) {
+			if (cam.is_camera_aiming_at_shape_for_interaction(MAP.control_buttons[i].shapes[j], MAP.control_buttons[i])) {
+				current_interaction_object = MAP.control_buttons[i];
+				break;
+			}
+			else {
+				current_interaction_object = DUMMY_INTERACTION;
+			}
+		}
+		if (current_interaction_object.hud_label != "")
+			break;
 	}
 
 	previous_mouse_pos_x = x - (SCREEN_WIDTH / 2);

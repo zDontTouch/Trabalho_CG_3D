@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdio.h>
 #include "Globals.h"
+#include "Global_instances.h"
 #include "Coordinates.h"
 #include "Score_Manager.h"
 #ifndef PI
@@ -15,6 +16,7 @@
 using namespace std;
 using namespace Globals;
 using namespace Coordinates;
+using namespace Global_instances;
 
 class Camera_System
 {
@@ -139,7 +141,7 @@ public:
 
 	}
 
-	bool is_camera_aiming_at(Shape s, Model_object parent, Score_Manager current_score) {
+	bool is_camera_aiming_at(Shape s, Model_object parent, Score_Manager current_score, int difficulty_selected) {
 		//n - normal plane vector
 		//c - point on the plane
 		//x0 - point of the beggining of the ray
@@ -158,12 +160,39 @@ public:
 
 		vector<float> intersection {x0[0] + k * v[0], x0[1] + k * v[1], x0[2] + k * v[2] };
 
-		//TO BE CONTINUED
 		if (intersection[0] >= s.vertexes[0].pos_x && intersection[0] <= s.vertexes[1].pos_x) {
 			if (intersection[1] >= s.vertexes[2].pos_y && intersection[1] <= s.vertexes[0].pos_y) {
 				if (k >= 0) {
-					current_score.shots_on_target.push_back(Point(intersection[0],intersection[1],intersection[2]));
-					return true;
+					if (difficulty_selected == EASY) {
+						current_score.shots_on_target.push_back(Point(intersection[0], intersection[1], intersection[2]));
+						return true;
+					}
+					else if (difficulty_selected == MEDIUM) {  //test bullet collision with any one of the targets' barricades
+						bool shot_on_barricade = false;
+						if (intersection[0] >= MAP.map_walls.shapes[18].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[18].vertexes[1].pos_x) {  //barricade 1
+							if (intersection[1] >= MAP.map_walls.shapes[18].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[18].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[19].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[19].vertexes[1].pos_x) {  //barricade 2
+							if (intersection[1] >= MAP.map_walls.shapes[19].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[19].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[20].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[20].vertexes[1].pos_x) {  // barricade 3
+							if (intersection[1] >= MAP.map_walls.shapes[20].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[20].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+
+						if (!shot_on_barricade) {
+							current_score.shots_on_target.push_back(Point(intersection[0], intersection[1], intersection[2]));
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
 				}
 			}
 		}
@@ -191,16 +220,19 @@ public:
 		// w dot n / v dot n
 		float k = (w[0] * n[0] + w[1] * n[1] + w[2] * n[2]) / (v[0] * n[0] + v[1] * n[1] + v[2] * n[2]);
 
-		vector<float> intersection{ x0[0] + k * v[0], x0[1] + k * v[1], x0[2] + k * v[2] };
+		vector<float> intersection{ 0,0,0 };
+
+		if( s.normal_vector[2] < 0 )  //ray detection should be inverted, since the ray will be projected towards -z axis direction
+			intersection = { x0[0] + k * v[0], x0[1] - k * v[1], x0[2] + k * v[2] };
+		else
+			intersection = { x0[0] + k * v[0], x0[1] + k * v[1], x0[2] + k * v[2] };
 
 		if (intersection[0] >= s.vertexes[0].pos_x && intersection[0] <= s.vertexes[1].pos_x) {
 			if (intersection[1] >= s.vertexes[2].pos_y && intersection[1] <= s.vertexes[0].pos_y) {
-				if (k >= 0) {
 					//calculating interaction distance
 					float distance = (sqrt(pow(cam_x - (s.vertexes[0].pos_x + parent.translateX),2))) + (sqrt(pow(cam_z - (s.vertexes[0].pos_z + parent.translateZ), 2)));
 					if (distance <= INTERACTION_DISTANCE)
 						return true;
-				}
 			}
 		}
 
