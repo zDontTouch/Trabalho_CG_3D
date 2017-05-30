@@ -32,8 +32,7 @@ namespace Globals {
 
 	const float INTERACTION_DISTANCE = 3;
 
-	const vector<int> MAX_ROUND_SECONDS_TIME{ 1,5 };
-	const float MAX_ROUND_SECONDS_TIME_INTEGER = 15;
+	int MAX_ROUND_SECONDS_TIME = 15;
 
 	const float BODY_SHOT_SCORE = 100;
 	const float HEAD_SHOT_SCORE = 150;

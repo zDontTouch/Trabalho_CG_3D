@@ -224,6 +224,30 @@ public:
 		button_sense_plus.hud_label = "Increase mouse sensibility";
 		control_buttons.push_back(button_sense_plus);
 
+		//round timer decrease button
+		Shape control_table_button_timer_minus1(vector<Vertex> {Vertex(-0.8, 2.0, -1.9), Vertex(-0.5, 2.0, -1.9), Vertex(-0.5, 1.5, -1.9), Vertex(-0.8, 1.5, -1.9)}, vector<float>{0.2f, 0.2f, 0.2f});
+		vector<Shape> button_timer_minus_shapes{
+			control_table_button_timer_minus1
+		};
+		Interactive_object button_timer_minus;
+		button_timer_minus.shapes = button_timer_minus_shapes;
+		button_timer_minus.set_action(&MAX_ROUND_SECONDS_TIME, SUBTRACT, 1);
+		button_timer_minus.hud_label = "Decrease round time";
+		button_timer_minus.is_value_important_to_hud_label = true;
+		control_buttons.push_back(button_timer_minus);
+
+		//round timer increase button
+		Shape control_table_button_timer_plus1(vector<Vertex> {Vertex(-0.3, 2.0, -1.9), Vertex(0.0, 2.0, -1.9), Vertex(0.0, 1.5, -1.9), Vertex(-0.3, 1.5, -1.9)}, vector<float>{0.2f, 0.2f, 0.2f});
+		vector<Shape> button_timer_plus_shapes{
+			control_table_button_timer_plus1
+		};
+		Interactive_object button_timer_plus;
+		button_timer_plus.shapes = button_timer_plus_shapes;
+		button_timer_plus.set_action(&MAX_ROUND_SECONDS_TIME, ADD, 1);
+		button_timer_plus.hud_label = "Increase round time";
+		button_timer_plus.is_value_important_to_hud_label = true;
+		control_buttons.push_back(button_timer_plus);
+
 		//calculating normal vectors
 		for (int i = 0; i < control_buttons.size(); i++) {
 			for (int j = 0; j < control_buttons[i].shapes.size(); j++) {
@@ -232,8 +256,9 @@ public:
 		}
 
 		//since all button interactions will be made with the player looking towards -z axis direction, the interaction buttons' normal vector should be z-inverted
-		control_buttons[0].shapes[0].normal_vector = { control_buttons[0].shapes[0].normal_vector[0], control_buttons[0].shapes[0].normal_vector[1], control_buttons[0].shapes[0].normal_vector[2]*-1 };
-		control_buttons[1].shapes[0].normal_vector = { control_buttons[1].shapes[0].normal_vector[0], control_buttons[1].shapes[0].normal_vector[1], control_buttons[1].shapes[0].normal_vector[2] * -1 };
+		for (int i = 0; i < control_buttons.size(); i++) {
+			control_buttons[i].shapes[0].normal_vector = { control_buttons[i].shapes[0].normal_vector[0], control_buttons[i].shapes[0].normal_vector[1], control_buttons[i].shapes[0].normal_vector[2] * -1 };
+		}
 
 	}
 	

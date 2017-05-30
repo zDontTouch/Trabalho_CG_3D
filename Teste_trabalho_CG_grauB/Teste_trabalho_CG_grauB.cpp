@@ -333,10 +333,10 @@ void draw_2D_hud() {
 	print_bullet_counter();
 
 	//interaction buttons label
-	if (current_interaction_object.hud_label != "") {
+	if (current_interaction_object.get_hud_label() != "") {
 		glColor3ub(0, 255, 255);
 		glRasterPos3f(-4.5, -3.0, 0.0);
-		for (char& c : current_interaction_object.hud_label)
+		for (char& c : current_interaction_object.get_hud_label())
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
 
 		string interaction_instruction = "[E] Interaction";
@@ -457,7 +457,7 @@ void teclasNormaisup(unsigned char tecla, int x, int y) {
 							}
 							else {
 								if (toupper(tecla) == 'E') {
-									if (current_interaction_object.hud_label != "") {
+									if (current_interaction_object.get_hud_label() != "") {
 										current_interaction_object.execute_interaction();
 									}
 								}
@@ -604,7 +604,7 @@ void mouse_passive(int x, int y) {
 				current_interaction_object = DUMMY_INTERACTION;
 			}
 		}
-		if (current_interaction_object.hud_label != "")
+		if (current_interaction_object.get_hud_label() != "")
 			break;
 	}
 
@@ -666,7 +666,7 @@ void time_counter(int value) {
 
 	glutPostRedisplay();
 
-	if (timer.seconds[0] == MAX_ROUND_SECONDS_TIME[0] && timer.seconds[1] == MAX_ROUND_SECONDS_TIME[1]) { //time limit reached
+	if (timer.seconds[0] == (MAX_ROUND_SECONDS_TIME/10) && timer.seconds[1] == (MAX_ROUND_SECONDS_TIME%10)) { //time limit reached
 		is_time_running = false;
 		is_game_active = false;
 		timer.reset_timer();

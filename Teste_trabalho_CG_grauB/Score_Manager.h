@@ -43,7 +43,7 @@ public:
 		else if (score == BODY_SHOT_SCORE) 
 			bodyshots++;
 
-		score_per_second = current_score / MAX_ROUND_SECONDS_TIME_INTEGER;
+		score_per_second = current_score / MAX_ROUND_SECONDS_TIME;
 
 	}
 
