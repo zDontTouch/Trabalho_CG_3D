@@ -16,6 +16,8 @@ public:
 	Model_object map_walls;
 	vector<Target> targets_easy;
 	vector<Target> targets_medium;
+	vector<Target> targets_hard;
+	vector<Target> hostages_hard;
 	vector<Interactive_object> control_buttons;
 
 	Scenario()
@@ -34,6 +36,7 @@ public:
 		Shape division3(vector<Vertex>{Vertex(-7, 3, 9), Vertex(-8, 3, 9), Vertex(-8, 0, 9), Vertex(-7, 0, 9)}, vector<float>{0.3f, 0.3f, 0.3f});
 		Shape difficulty_floor_1(vector<Vertex>{Vertex(-8,0.01,8), Vertex(-20,0.01,8), Vertex(-20,0.01,10), Vertex(-8,0.01,10)}, vector<float>{0, 1, 0});
 		Shape difficulty_floor_2(vector<Vertex>{Vertex(5, 0.01, 8), Vertex(-7, 0.01, 8), Vertex(-7, 0.01, 10), Vertex(5, 0.01, 10)}, vector<float>{1, 1, 0});
+		Shape difficulty_floor_3(vector<Vertex>{Vertex(20, 0.01, 8), Vertex(6, 0.01, 8), Vertex(6, 0.01, 10), Vertex(20, 0.01, 10)}, vector<float>{1, 0, 0});
 		Shape control_table1(vector<Vertex> {Vertex(2, 3, -2), Vertex(-2, 3, -2), Vertex(-2, 0, -2), Vertex(2, 0, -2)}, vector<float>{0.3f, 0.3f, 0.3f});
 		Shape control_table2(vector<Vertex> {Vertex(2, 3, -3), Vertex(-2, 3, -3), Vertex(-2, 0, -3), Vertex(2, 0, -3)}, vector<float>{0.3f, 0.3f, 0.3f});
 		Shape control_table3(vector<Vertex> {Vertex(2, 3, -3), Vertex(2, 3, -2), Vertex(2, 0, -2), Vertex(2, 0, -3)}, vector<float>{0.3f, 0.3f, 0.3f});
@@ -42,6 +45,10 @@ public:
 		Shape medium_target_cover1(vector<Vertex>{Vertex(-2.5, 1, 27), Vertex(-1.0, 1, 27), Vertex(-1.0, 0, 27), Vertex(-2.5, 0, 27)}, vector<float>{0.2f, 0.1f, 0.0f});
 		Shape medium_target_cover2(vector<Vertex>{Vertex(-5.5, 1, 23), Vertex(-3.0, 1, 23), Vertex(-3.0, 0, 23), Vertex(-5.5, 0, 23)}, vector<float>{0.2f, 0.1f, 0.0f});
 		Shape medium_target_cover3(vector<Vertex>{Vertex(1.5, 1, 23), Vertex(4.0, 1, 23), Vertex(4.0, 0, 23), Vertex(1.5, 0, 23)}, vector<float>{0.2f, 0.1f, 0.0f});
+		Shape medium_target_cover4(vector<Vertex>{Vertex(8.5, 1, 26), Vertex(12.0, 1, 26), Vertex(12.0, 0, 26), Vertex(8.5, 0, 26)}, vector<float>{0.2f, 0.1f, 0.0f});
+		Shape medium_target_cover5(vector<Vertex>{Vertex(6.5, 1, 19), Vertex(9.0, 1, 19), Vertex(9.0, 0, 19), Vertex(6.5, 0, 19)}, vector<float>{0.2f, 0.1f, 0.0f});
+		Shape medium_target_cover6(vector<Vertex>{Vertex(14.5, 1, 23), Vertex(17.0, 1, 23), Vertex(17.0, 0, 23), Vertex(14.5, 0, 23)}, vector<float>{0.2f, 0.1f, 0.0f});
+		Shape medium_target_cover7(vector<Vertex>{Vertex(16, 1, 20), Vertex(19.0, 1, 20), Vertex(19.0, 0, 20), Vertex(16, 0, 20)}, vector<float>{0.2f, 0.1f, 0.0f});
 		Shape division4(vector<Vertex>{Vertex(6, 3, 30), Vertex(6, 3, 9), Vertex(6, 0, 9), Vertex(6, 0, 30)}, vector<float>{0.3f, 0.3f, 0.3f});
 		Shape division5(vector<Vertex>{Vertex(5, 3, 30), Vertex(5, 3, 9), Vertex(5, 0, 9), Vertex(5, 0, 30)}, vector<float>{0.3f, 0.3f, 0.3f});
 		Shape division6(vector<Vertex>{Vertex(6, 3, 9), Vertex(5, 3, 9), Vertex(5, 0, 9), Vertex(6, 0, 9)}, vector<float>{0.3f, 0.3f, 0.3f});
@@ -59,6 +66,7 @@ public:
 			division3,
 			difficulty_floor_1,
 			difficulty_floor_2,
+			difficulty_floor_3,
 			control_table1,
 			control_table2,
 			control_table3,
@@ -67,6 +75,10 @@ public:
 			medium_target_cover1,
 			medium_target_cover2,
 			medium_target_cover3,
+			medium_target_cover4,
+			medium_target_cover5,
+			medium_target_cover6,
+			medium_target_cover7,
 			division4,
 			division5,
 			division6
@@ -199,6 +211,159 @@ public:
 			}
 		}
 
+		// CREATING HARD MODE TARGETS
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - target 7
+		Target_part target7_body(vector <Vertex> {Vertex(8, 2, 0), Vertex(7.3, 2, 0), Vertex(7.3, 0, 0), Vertex(8, 0, 0)}, vector<float>{1, 1, 1});
+		//head - target 7
+		Target_part target7_head(vector <Vertex> {Vertex(7.8, 2.4, 0), Vertex(7.5, 2.4, 0), Vertex(7.5, 2, 0), Vertex(7.8, 2, 0)}, vector<float>{1, 1, 1});
+		vector<Shape> target_hard_7_parts{
+			target7_head,
+			target7_body
+		};
+		//creating and definig single model object for each complete target
+		Target target_hard_7_complete;
+		target_hard_7_complete.shapes = target_hard_7_parts;
+		target_hard_7_complete.set_translation(0, 0, 20);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - target 8
+		Target_part target8_body(vector <Vertex> {Vertex(11, 2, 0), Vertex(10.3, 2, 0), Vertex(10.3, 0, 0), Vertex(11, 0, 0)}, vector<float>{1, 1, 1});
+		//head - target 8
+		Target_part target8_head(vector <Vertex> {Vertex(10.8, 2.4, 0), Vertex(10.5, 2.4, 0), Vertex(10.5, 2, 0), Vertex(10.8, 2, 0)}, vector<float>{1, 1, 1});
+		vector<Shape> target_hard_8_parts{
+			target8_head,
+			target8_body
+		};
+		//creating and definig single model object for each complete target
+		Target target_hard_8_complete;
+		target_hard_8_complete.shapes = target_hard_8_parts;
+		target_hard_8_complete.set_translation(0, 0, 28);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - target 9
+		Target_part target9_body(vector <Vertex> {Vertex(15.3, 2, 0), Vertex(16, 2, 0), Vertex(16, 0, 0), Vertex(15.3, 0, 0)}, vector<float>{1, 1, 1});
+		//head - target 9
+		Target_part target9_head(vector <Vertex> {Vertex(15.5, 2.4, 0), Vertex(15.8, 2.4, 0), Vertex(15.8, 2, 0), Vertex(15.5, 2, 0)}, vector<float>{1, 1, 1});
+		vector<Shape> target_hard_9_parts{
+			target9_head,
+			target9_body
+		};
+		//creating and definig single model object for each complete target
+		Target target_hard_9_complete;
+		target_hard_9_complete.shapes = target_hard_9_parts;
+		target_hard_9_complete.set_translation(0, 0, 24);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - target 10
+		Target_part target10_body(vector <Vertex> {Vertex(18.3, 2, 0), Vertex(19, 2, 0), Vertex(19, 0, 0), Vertex(18.3, 0, 0)}, vector<float>{1, 1, 1});
+		//head - target 10
+		Target_part target10_head(vector <Vertex> {Vertex(18.5, 2.4, 0), Vertex(18.8, 2.4, 0), Vertex(18.8, 2, 0), Vertex(18.5, 2, 0)}, vector<float>{1, 1, 1});
+		vector<Shape> target_hard_10_parts{
+			target10_head,
+			target10_body
+		};
+		//creating and definig single model object for each complete target
+		Target target_hard_10_complete;
+		target_hard_10_complete.shapes = target_hard_10_parts;
+		target_hard_10_complete.set_translation(0, 0, 21);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//creating all targets vector
+		vector<Target> targets_hard_mode{
+			//target_hard_7_complete,
+			//target_hard_8_complete,
+			target_hard_9_complete,
+			target_hard_10_complete
+		};
+		targets_hard = targets_hard_mode;
+		//calculating normal vectors
+		for (int i = 0; i < targets_hard.size(); i++) {
+			for (int j = 0; j < targets_hard[i].shapes.size(); j++) {
+				targets_hard[i].shapes[j].normal_vector = CalculateVectorNormal(targets_hard[i].shapes[j]);
+			}
+		}
+
+		// CREATING HARD MODE HOSTAGES
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - hostage 1
+		Target_part hostage1_body(vector <Vertex> {Vertex(7, 2, 0), Vertex(6.3, 2, 0), Vertex(6.3, 0, 0), Vertex(7, 0, 0)}, vector<float>{0.6f, 0.6f, 1});
+		//head - hostage 1
+		Target_part hostage1_head(vector <Vertex> {Vertex(6.8, 2.4, 0), Vertex(6.5, 2.4, 0), Vertex(6.5, 2, 0), Vertex(6.8, 2, 0)}, vector<float>{0.6f, 0.6f, 1});
+		vector<Shape> hostage1_parts{
+			hostage1_head,
+			hostage1_body
+		};
+		//creating and definig single model object for each complete target
+		Target hostage1_complete;
+		hostage1_complete.shapes = hostage1_parts;
+		hostage1_complete.set_translation(0, 0, 20);
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - hostage 2
+		Target_part hostage2_body(vector <Vertex> {Vertex(12, 2, 0), Vertex(11.3, 2, 0), Vertex(11.3, 0, 0), Vertex(12, 0, 0)}, vector<float>{0.6f, 0.6f, 1});
+		//head - hostage 2
+		Target_part hostage2_head(vector <Vertex> {Vertex(11.8, 2.4, 0), Vertex(11.5, 2.4, 0), Vertex(11.5, 2, 0), Vertex(11.8, 2, 0)}, vector<float>{0.6f, 0.6f, 1});
+		vector<Shape> hostage2_parts{
+			hostage2_head,
+			hostage2_body
+		};
+		//creating and definig single model object for each complete target
+		Target hostage2_complete;
+		hostage2_complete.shapes = hostage2_parts;
+		hostage2_complete.set_translation(0, 0, 28);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - hostage 3
+		Target_part hostage3_body(vector <Vertex> {Vertex(16.3, 2, 0), Vertex(17, 2, 0), Vertex(17, 0, 0), Vertex(16.3, 0, 0)}, vector<float>{0.6f, 0.6f, 1});
+		//head - hostage 3
+		Target_part hostage3_head(vector <Vertex> {Vertex(16.5, 2.4, 0), Vertex(16.8, 2.4, 0), Vertex(16.8, 2, 0), Vertex(16.5, 2, 0)}, vector<float>{0.6f, 0.6f, 1});
+		vector<Shape> hostage3_parts{
+			hostage3_head,
+			hostage3_body
+		};
+		//creating and definig single model object for each complete target
+		Target hostage3_complete;
+		hostage3_complete.shapes = hostage3_parts;
+		hostage3_complete.set_translation(0, 0, 24);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//body - hostage 4
+		Target_part hostage4_body(vector <Vertex> {Vertex(17.3, 2, 0), Vertex(18, 2, 0), Vertex(18, 0, 0), Vertex(17.3, 0, 0)}, vector<float>{0.6f, 0.6f, 1});
+		//head - hostage 4
+		Target_part hostage4_head(vector <Vertex> {Vertex(17.5, 2.4, 0), Vertex(17.8, 2.4, 0), Vertex(17.8, 2, 0), Vertex(17.5, 2, 0)}, vector<float>{0.6f, 0.6f, 1});
+		vector<Shape> hostage4_parts{
+			hostage4_head,
+			hostage4_body
+		};
+		//creating and definig single model object for each complete target
+		Target hostage4_complete;
+		hostage4_complete.shapes = hostage4_parts;
+		hostage4_complete.set_translation(0, 0, 21);
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//creating all targets vector
+		vector<Target> hostages_hard_mode{
+			hostage1_complete,
+			hostage2_complete,
+			hostage3_complete,
+			hostage4_complete
+		};
+		hostages_hard = hostages_hard_mode;
+		//calculating normal vectors
+		for (int i = 0; i < hostages_hard.size(); i++) {
+			for (int j = 0; j < hostages_hard[i].shapes.size(); j++) {
+				hostages_hard[i].shapes[j].normal_vector = CalculateVectorNormal(hostages_hard[i].shapes[j]);
+			}
+		}
 
 		// CREATING INTERACTION BUTTONS
 
@@ -289,8 +454,16 @@ public:
 			targets_medium[i].draw_model_object();
 		}
 
+		for (int i = 0; i < targets_hard.size(); i++) {
+			targets_hard[i].draw_model_object();
+		}
+
 		for (int i = 0; i < control_buttons.size(); i++) {
 			control_buttons[i].draw_model_object();
+		}
+
+		for (int i = 0; i < hostages_hard.size(); i++) {
+			hostages_hard[i].draw_model_object();
 		}
 
 		//draw lines between walls
@@ -699,6 +872,12 @@ public:
 			}
 		}
 
+		if (cam_pos_x > 6 && cam_pos_x < 20) {
+			if (cam_pos_z > 8 && cam_pos_z < 10) {
+				return HARD;
+			}
+		}
+
 		return NO_DIFFICULTY;
 
 	}
@@ -734,6 +913,36 @@ public:
 			else if (targets_medium[i].pitch == TARGET_PITCH_INACTIVE) {
 				targets_medium[i].is_active = false;
 				targets_medium[i].is_dead = false;
+			}
+		}
+
+		for (int i = 0; i < targets_hard.size(); i++) {
+			for (int j = 0; j < targets_hard[i].shapes.size(); j++) {
+				targets_hard[i].shapes[j].color = { 1.0f, 1.0f, 1.0f };
+			}
+			targets_hard[i].pitch = (rand() % 2 == 0) ? TARGET_PITCH_ACTIVE : TARGET_PITCH_INACTIVE;
+			if (targets_hard[i].pitch == TARGET_PITCH_ACTIVE) {
+				targets_hard[i].is_active = true;
+				targets_hard[i].is_dead = false;
+			}
+			else if (targets_hard[i].pitch == TARGET_PITCH_INACTIVE) {
+				targets_hard[i].is_active = false;
+				targets_hard[i].is_dead = false;
+			}
+		}
+
+		for (int i = 0; i < hostages_hard.size(); i++) {
+			for (int j = 0; j < hostages_hard[i].shapes.size(); j++) {
+				hostages_hard[i].shapes[j].color = { 0.6f, 0.6f, 1 };
+			}
+			hostages_hard[i].pitch = (rand() % 2 == 0) ? TARGET_PITCH_ACTIVE : TARGET_PITCH_INACTIVE;
+			if (hostages_hard[i].pitch == TARGET_PITCH_ACTIVE) {
+				hostages_hard[i].is_active = true;
+				hostages_hard[i].is_dead = false;
+			}
+			else if (hostages_hard[i].pitch == TARGET_PITCH_INACTIVE) {
+				hostages_hard[i].is_active = false;
+				hostages_hard[i].is_dead = false;
 			}
 		}
 	}

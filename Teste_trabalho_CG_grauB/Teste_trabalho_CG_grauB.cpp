@@ -44,6 +44,203 @@ Camera_System cam;
 
 vector<Score_Manager> scoreBoards{};
 
+int round_selected = 0;
+
+void print_scoreboard() {
+
+	ostringstream convert;
+
+	//individual round scoreBoard round selection
+	string individual_control_label = "[<-] previous round                - "; 
+	convert.str("");
+	if (round_selected > 0) {
+		convert << round_selected;
+		individual_control_label.append(convert.str());
+	}
+	individual_control_label.append(" -                        next round[->]");
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(2, -15, 0.0);
+	for (char& c : individual_control_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
+
+	//individual round scoreBoards
+	string individual_score_label = "Individual ScoreBoard";
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(2, 12, 0.0);
+	for (char& c : individual_score_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//total score per second
+	string score_per_second_label = "Total score per second: ";
+	float round_score = 0;
+	int total_seconds = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		total_seconds += scoreBoards[i].round_seconds;
+		round_score += scoreBoards[i].current_score;
+	}
+	float score_per_second = (scoreBoards.size()>0)? round_score / total_seconds : 0;
+	convert.str("");
+	convert << score_per_second;
+	score_per_second_label.append(convert.str());
+	score_per_second_label.append(" pts.");
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, -10, 0.0);
+	for (char& c : score_per_second_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//total balance
+	string total_score_label = "Total score balance: ";
+	int total_score = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		total_score += scoreBoards[i].current_score;
+	}
+	convert.str("");
+	convert << total_score;
+	total_score_label.append(convert.str());
+	total_score_label.append(" pts.");
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, -8, 0.0);
+	for (char& c : total_score_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//total positive score
+	string total_positive_score_label = "Total positive score gathered: ";
+	int total_headshots = 0;
+	int total_bodyshots = 0;
+	int total_positive_score = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		total_headshots += scoreBoards[i].headshots;
+		total_bodyshots += scoreBoards[i].bodyshots;
+	}
+	total_positive_score = (total_bodyshots * BODY_SHOT_SCORE) + (total_headshots * HEAD_SHOT_SCORE);
+	convert.str("");
+	convert << total_positive_score;
+	total_positive_score_label.append(convert.str());
+	total_positive_score_label.append(" pts.");
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, -6, 0.0);
+	for (char& c : total_positive_score_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//Shot precision
+	string precision_label = "Precision: ";
+	float total_shots = 0;
+	float shots_hit = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		total_shots += scoreBoards[i].bullets_fired;
+		shots_hit += scoreBoards[i].bullets_on_target;
+	}
+	float precision = (total_shots>0)? (shots_hit / total_shots) * 100 : 0;
+	convert.str("");
+	convert << precision;
+	precision_label.append(convert.str());
+	precision_label.append("%");
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, -2, 0.0);
+	for (char& c : precision_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//head shots
+	string shots_on_head_label = "HeadShots: ";
+	int shots_on_head = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		shots_on_head += scoreBoards[i].headshots;
+	}
+	convert.str("");
+	convert << shots_on_head;
+	shots_on_head_label.append(convert.str());
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 0, 0.0);
+	for (char& c : shots_on_head_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//body shots
+	string shots_on_body_label = "Shots on target body: ";
+	int shots_on_body = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		shots_on_body += scoreBoards[i].bodyshots;
+	}
+	convert.str("");
+	convert << shots_on_body;
+	shots_on_body_label.append(convert.str());
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 2, 0.0);
+	for (char& c : shots_on_body_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//shots on target
+	string shots_on_target_label = "Shots fired on target: ";
+	int shots_on_target = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		shots_on_target += scoreBoards[i].bullets_on_target;
+	}
+	convert.str("");
+	convert << shots_on_target;
+	shots_on_target_label.append(convert.str());
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 4, 0.0);
+	for (char& c : shots_on_target_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//shots fired
+	string shots_fired_label = "Shots fired: ";
+	int shots = 0;
+	for (int i = 0; i < scoreBoards.size(); i++) {
+		shots += scoreBoards[i].bullets_fired;
+	}
+	convert.str("");
+	convert << shots;
+	shots_fired_label.append(convert.str());
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 6, 0.0);
+	for (char& c : shots_fired_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	//maches played label
+	string matches_played_label = "Matches played: ";
+	convert.str("");
+	convert << scoreBoards.size();
+	matches_played_label.append(convert.str());
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 8, 0.0);
+	for (char& c : matches_played_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	string general_stats = "General Stats:";
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-19, 12, 0.0);
+	for (char& c : general_stats)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	string scoreboard_label = "SCORE BOARD";
+	glColor4ub(0, 0, 0, 255);
+	glRasterPos3f(-2.5, 17, 0.0);
+	for (char& c : scoreboard_label)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+	glBegin(GL_LINES);
+	glColor4f(0.2,0.2,0.2,0.4);
+	glVertex2f(0,15);
+	glVertex2f(0, -20);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor4f(0.5, 0.5, 0.5, 0.8);
+	glVertex2f(-20, 20);
+	glVertex2f(20, 20);
+	glVertex2f(20, -20);
+	glVertex2f(-20, -20);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor4f(1,1,1,0.4);
+	glVertex2f(-30, 30);
+	glVertex2f(30,30);
+	glVertex2f(30, -30);
+	glVertex2f(-30, -30);
+	glEnd();
+}
+
 void print_timer(int difficulty_selected) {
 
 	//Cor da fonte
@@ -194,37 +391,43 @@ void draw_2D_hud() {
 		timer.reset_timer();
 
 	//	crosshair
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex2f(-0.05, 0.8);
-	glVertex2f(0.05, 0.8);
-	glVertex2f(0.05, 0.3);
-	glVertex2f(-0.05, 0.3);
-	glEnd();
+	if (!IS_TAB_PRESSED) {
+		glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(-0.05, 0.8);
+		glVertex2f(0.05, 0.8);
+		glVertex2f(0.05, 0.3);
+		glVertex2f(-0.05, 0.3);
+		glEnd();
 
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex2f(-0.05, -0.8);
-	glVertex2f(0.05, -0.8);
-	glVertex2f(0.05, -0.3);
-	glVertex2f(-0.05, -0.3);
-	glEnd();
+		glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(-0.05, -0.8);
+		glVertex2f(0.05, -0.8);
+		glVertex2f(0.05, -0.3);
+		glVertex2f(-0.05, -0.3);
+		glEnd();
 
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex2f(-0.5, -0.05);
-	glVertex2f(-0.5, 0.05);
-	glVertex2f(-0.2, 0.05);
-	glVertex2f(-0.2, -0.05);
-	glEnd();
+		glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(-0.5, -0.05);
+		glVertex2f(-0.5, 0.05);
+		glVertex2f(-0.2, 0.05);
+		glVertex2f(-0.2, -0.05);
+		glEnd();
 
-	glBegin(GL_QUADS);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex2f(0.5, -0.05);
-	glVertex2f(0.5, 0.05);
-	glVertex2f(0.2, 0.05);
-	glVertex2f(0.2, -0.05);
-	glEnd();
+		glBegin(GL_QUADS);
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(0.5, -0.05);
+		glVertex2f(0.5, 0.05);
+		glVertex2f(0.2, 0.05);
+		glVertex2f(0.2, -0.05);
+		glEnd();
+	}
+
+	//scoreboard (if TAB is pressed)
+	if (IS_TAB_PRESSED)
+		print_scoreboard();
 
 	//interaction indicator (start game)
 	if (is_player_on_difficulty_floor && !is_game_active) {
@@ -281,7 +484,10 @@ void draw_2D_hud() {
 		score.append(convert.str());
 		score.append(" pts.");
 
-		glColor3ub(0,255,0);
+		if(last_score < 0) //negative points
+			glColor3ub(255,0,0);
+		else
+			glColor3ub(0, 255, 0);
 		glRasterPos3f(1.0,1.0,0.0);
 		for (char& c : score)
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, c);
@@ -449,6 +655,7 @@ void teclasNormaisup(unsigned char tecla, int x, int y) {
 								is_time_running = true;
 								is_game_active = true;
 								scoreBoards.push_back(Score_Manager());
+								round_selected++;
 							}
 						}
 						else {
@@ -459,6 +666,11 @@ void teclasNormaisup(unsigned char tecla, int x, int y) {
 								if (toupper(tecla) == 'E') {
 									if (current_interaction_object.get_hud_label() != "") {
 										current_interaction_object.execute_interaction();
+									}
+								}
+								else {
+									if (toupper(tecla) == '	') {
+										IS_TAB_PRESSED = !IS_TAB_PRESSED;
 									}
 								}
 							}
@@ -490,7 +702,7 @@ void mouse_movement(int button, int state, int x, int y) {
 	}
 	else if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
 		//testing targets collision (according to the difficulty selected) and shoot contabilization
-		bool missed_shot = false;
+		int missed_shot = 0;
 		if (bullets_on_chamber > 0 && !is_reloading) {
 			bullets_on_chamber--;
 
@@ -508,29 +720,31 @@ void mouse_movement(int button, int state, int x, int y) {
 									MAP.targets_easy[i].is_dead = true;
 									MAP.targets_easy[i].pitch = TARGET_PITCH_INACTIVE;
 									if (j == 0) { //headshot
-										scoreBoards[scoreBoards.size() - 1].score(HEAD_SHOT_SCORE);
 										last_score = HEAD_SHOT_SCORE;
 										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 									else { //bodyshot
-										scoreBoards[scoreBoards.size() - 1].score(BODY_SHOT_SCORE);
 										last_score = BODY_SHOT_SCORE;
 										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 								}
 								else { //missed shot
-									missed_shot = true;
+									missed_shot ++;
 								}
 
 							}
 							else { //missed shot
-								missed_shot = true;
+								missed_shot ++;
 							}
 						}
 					}
 
-					if (missed_shot)
+					if (missed_shot == MAP.targets_easy.size()*2) {
 						scoreBoards[scoreBoards.size() - 1].score(MISSED_SHOT);
+					}
+					else {
+						scoreBoards[scoreBoards.size() - 1].score(last_score);
+					}
 					break;
 
 				case MEDIUM:
@@ -543,29 +757,91 @@ void mouse_movement(int button, int state, int x, int y) {
 									MAP.targets_medium[i].is_dead = true;
 									MAP.targets_medium[i].pitch = TARGET_PITCH_INACTIVE;
 									if (j == 0) { //headshot
-										scoreBoards[scoreBoards.size() - 1].score(HEAD_SHOT_SCORE);
 										last_score = HEAD_SHOT_SCORE;
 										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 									else { //bodyshot
-										scoreBoards[scoreBoards.size() - 1].score(BODY_SHOT_SCORE);
 										last_score = BODY_SHOT_SCORE;
 										glutTimerFunc(1, score_hit_warning_time, 1);
 									}
 								}
 								else { //missed shot
-									missed_shot = true;
+									missed_shot ++;
 								}
 
 							}
 							else { //missed shot
-								missed_shot = true;
+								missed_shot ++;
 							}
 						}
 					}
 
-					if (missed_shot)
+					if (missed_shot == MAP.targets_medium.size()*2) {
 						scoreBoards[scoreBoards.size() - 1].score(MISSED_SHOT);
+					}
+					else {
+						cout << "marcando score " << last_score << endl;
+						scoreBoards[scoreBoards.size() - 1].score(last_score);
+					}
+					break;
+
+				case HARD:
+					cout << "hard shot" << endl;
+					for (int i = 0; i < MAP.targets_hard.size(); i++) {
+						cout << "testando alvo " << i << endl;
+						for (int j = 0; j < MAP.targets_hard[i].shapes.size(); j++) {
+							if (cam.is_camera_aiming_at(MAP.targets_hard[i].shapes[j], MAP.targets_hard[i], scoreBoards[scoreBoards.size() - 1], HARD)) {
+								if (MAP.targets_hard[i].is_active && !MAP.targets_hard[i].is_dead) {
+									MAP.targets_hard[i].shapes[j].color = { 1.0, 0.0, 0.0 };
+									MAP.targets_hard[i].is_active = false;
+									MAP.targets_hard[i].is_dead = true;
+									MAP.targets_hard[i].pitch = TARGET_PITCH_INACTIVE;
+									if (j == 0) { //headshot
+										last_score = HEAD_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
+									}
+									else { //bodyshot
+										last_score = BODY_SHOT_SCORE;
+										glutTimerFunc(1, score_hit_warning_time, 1);
+									}
+								}
+								else { //missed shot
+									missed_shot ++;
+								}
+
+							}
+							else { //missed shot
+								missed_shot ++;
+							}
+						}
+					}
+
+					if (missed_shot == MAP.targets_hard.size()*2) {
+						cout << "missed shot" << endl;
+						bool hostage_hit = true;
+						//test hostage shot
+						for (int i = 0; i < MAP.hostages_hard.size(); i++) {
+							for (int j = 0; j < MAP.hostages_hard[i].shapes.size(); j++) {
+								if (cam.is_camera_aiming_at(MAP.hostages_hard[i].shapes[j], MAP.hostages_hard[i], scoreBoards[scoreBoards.size() - 1], HARD)) {
+									if (MAP.hostages_hard[i].is_active && !MAP.hostages_hard[i].is_dead) {
+										MAP.hostages_hard[i].shapes[j].color = { 1.0, 0.0, 0.0 };
+										MAP.hostages_hard[i].is_active = false;
+										MAP.hostages_hard[i].is_dead = true;
+										MAP.hostages_hard[i].pitch = TARGET_PITCH_INACTIVE;
+										scoreBoards[scoreBoards.size() - 1].score(HOSTAGE_SHOT_SCORE);
+										last_score = HOSTAGE_SHOT_SCORE;
+										hostage_hit = true;
+										glutTimerFunc(1, score_hit_warning_time, 1);
+									}
+								}
+							}
+						}
+						if(!hostage_hit)
+							scoreBoards[scoreBoards.size() - 1].score(MISSED_SHOT);
+					}
+					else {
+						scoreBoards[scoreBoards.size() - 1].score(last_score);
+					}
 					break;
 
 				}
@@ -615,8 +891,12 @@ void mouse_passive(int x, int y) {
 
 void teclasespeciais(int tecla, int x, int y) {
 	if (tecla == GLUT_KEY_RIGHT) {
+		if (round_selected < scoreBoards.size())
+			round_selected++;
 	}else{
 		if (tecla == GLUT_KEY_LEFT) {
+			if (round_selected > 1)
+				round_selected--;
 		}
 		else {
 			if (tecla == GLUT_KEY_UP) {

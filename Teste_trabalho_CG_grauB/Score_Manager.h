@@ -18,17 +18,18 @@ public:
 	int headshots;
 	int bodyshots;
 
-	float score_per_second;
+	float round_seconds;
 
 	vector<Point> shots_on_target{};
 
 	Score_Manager()
 	{
+		current_score = 0;
 		bullets_fired = 0;
 		bullets_on_target = 0;
 		headshots = 0;
 		bodyshots = 0;
-		score_per_second = 0;
+		round_seconds = MAX_ROUND_SECONDS_TIME;
 	}
 
 	void score(int score) {
@@ -42,8 +43,6 @@ public:
 			headshots++;
 		else if (score == BODY_SHOT_SCORE) 
 			bodyshots++;
-
-		score_per_second = current_score / MAX_ROUND_SECONDS_TIME;
 
 	}
 

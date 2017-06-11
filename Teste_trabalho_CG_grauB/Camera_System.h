@@ -150,7 +150,7 @@ public:
 		vector<float> n = s.normal_vector;
 		vector<float> c { s.vertexes[0].pos_x + parent.translateX,s.vertexes[0].pos_y+parent.translateY,s.vertexes[0].pos_z+parent.translateZ };
 		vector<float> x0{ cam_x,cam_y,cam_z };
-		vector<float> x1{ (cam_x + camera_direction[0] * 50),(cam_y + camera_direction[1] * 50),(cam_z + camera_direction[2] * 50) };
+		vector<float> x1{ (cam_x + camera_direction[0] * 100),(cam_y + camera_direction[1] * 100),(cam_z + camera_direction[2] * 100) };
 
 		vector<float> v{ x1[0] - x0[0], x1[1] - x0[1], x1[2] - x0[2] };
 		vector<float> w{ c[0] - x0[0], c[1] - x0[1], c[2] - x0[2] };
@@ -169,18 +169,49 @@ public:
 					}
 					else if (difficulty_selected == MEDIUM) {  //test bullet collision with any one of the targets' barricades
 						bool shot_on_barricade = false;
-						if (intersection[0] >= MAP.map_walls.shapes[18].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[18].vertexes[1].pos_x) {  //barricade 1
-							if (intersection[1] >= MAP.map_walls.shapes[18].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[18].vertexes[0].pos_y) {
-								shot_on_barricade = true;
-							}
-						}
-						if (intersection[0] >= MAP.map_walls.shapes[19].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[19].vertexes[1].pos_x) {  //barricade 2
+						if (intersection[0] >= MAP.map_walls.shapes[19].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[19].vertexes[1].pos_x) {  //barricade 1
 							if (intersection[1] >= MAP.map_walls.shapes[19].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[19].vertexes[0].pos_y) {
 								shot_on_barricade = true;
 							}
 						}
-						if (intersection[0] >= MAP.map_walls.shapes[20].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[20].vertexes[1].pos_x) {  // barricade 3
+						if (intersection[0] >= MAP.map_walls.shapes[20].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[20].vertexes[1].pos_x) {  //barricade 2
 							if (intersection[1] >= MAP.map_walls.shapes[20].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[20].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[21].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[21].vertexes[1].pos_x) {  // barricade 3
+							if (intersection[1] >= MAP.map_walls.shapes[21].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[21].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+
+						if (!shot_on_barricade) {
+							current_score.shots_on_target.push_back(Point(intersection[0], intersection[1], intersection[2]));
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
+					else if (difficulty_selected == HARD) {
+						bool shot_on_barricade = false;
+						if (intersection[0] >= MAP.map_walls.shapes[22].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[22].vertexes[1].pos_x) {  //barricade 1
+							if (intersection[1] >= MAP.map_walls.shapes[22].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[22].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[23].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[23].vertexes[1].pos_x) {  //barricade 2
+							if (intersection[1] >= MAP.map_walls.shapes[23].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[23].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[24].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[24].vertexes[1].pos_x) {  // barricade 3
+							if (intersection[1] >= MAP.map_walls.shapes[24].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[24].vertexes[0].pos_y) {
+								shot_on_barricade = true;
+							}
+						}
+						if (intersection[0] >= MAP.map_walls.shapes[25].vertexes[0].pos_x && intersection[0] <= MAP.map_walls.shapes[25].vertexes[1].pos_x) {  // barricade 3
+							if (intersection[1] >= MAP.map_walls.shapes[25].vertexes[2].pos_y && intersection[1] <= MAP.map_walls.shapes[25].vertexes[0].pos_y) {
 								shot_on_barricade = true;
 							}
 						}

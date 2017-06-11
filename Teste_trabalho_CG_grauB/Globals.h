@@ -21,6 +21,7 @@ namespace Globals {
 	bool IS_D_DOWN = false;
 	bool IS_CTRL_DOWN = false;
 	bool IS_SHIFT_DOWN = false;
+	bool IS_TAB_PRESSED = false;
 
 	const int NO_DIFFICULTY = 0;
 	const int EASY = 1;
@@ -36,6 +37,7 @@ namespace Globals {
 
 	const float BODY_SHOT_SCORE = 100;
 	const float HEAD_SHOT_SCORE = 150;
+	const float HOSTAGE_SHOT_SCORE = -75;
 	const float MISSED_SHOT = 0;
 
 	const float MAX_BULLETS_ON_CHAMBER = 15;
